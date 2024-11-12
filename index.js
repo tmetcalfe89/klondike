@@ -91,11 +91,15 @@ function renderStats() {
 function renderDiscard() {
   discardEl.innerHTML = "";
   const renderedDiscards = game.discard.slice(0 - game.discardRevealed);
-  for (const card of renderedDiscards) {
+  for (const cardI in renderedDiscards) {
+    const card = renderedDiscards[cardI];
     const cardEl = createCardEl({
       card,
       flipped: true,
     });
+    if (cardI != renderedDiscards.length - 1) {
+      cardEl.removeEventListener("click", handleClickFieldCard);
+    }
     discardEl.appendChild(cardEl);
   }
 }
