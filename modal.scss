@@ -1,0 +1,50 @@
+dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  border-radius: 5px;
+  border: none;
+  min-width: 35vw;
+  max-width: 30rem;
+  padding: 0;
+}
+
+dialog .main:not(:last-child),
+dialog .header:not(:last-child) {
+  border-bottom: 1px solid lightgray;
+}
+
+dialog .header h1 {
+  font-weight: bold;
+  font-size: x-large;
+  margin: 0;
+}
+
+dialog > * {
+  padding: 1.5rem;
+}
+
+dialog .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+dialog .header button {
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  font-size: 1.5em;
+  color: grey;
+}
+
+dialog .header button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+dialog .footer {
+  display: flex;
+  justify-content: flex-end;
+}

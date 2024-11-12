@@ -5,6 +5,7 @@ import {
   draw,
   startGame,
 } from "./klondike.js";
+import { initializeModals } from "./modal.js";
 
 let game = null;
 const deckEl = document.querySelector(".deck");
@@ -20,6 +21,7 @@ const scoreEl = document.querySelector(`[data-info="score"] span`);
 const movesEl = document.querySelector(`[data-info="moves"] span`);
 const timerEl = document.querySelector(`[data-info="timer"]`);
 const newGameEl = document.querySelector(`[data-control="new-game"]`);
+initializeModals();
 
 function loadGame() {
   return JSON.parse(localStorage.getItem("game"));

@@ -11,6 +11,12 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./build/style.css" />
     <script src="./index.js" type="module"></script>
   </head>
@@ -26,9 +32,9 @@
         <button data-control="new-game" title="New Game">
           <i class="fa-solid fa-bolt"></i>
         </button>
-        <!-- <button data-control="show-modal" title="Info">
+        <button title="Info" data-modal-action="open" data-modal-target="#info-modal">
           <i class="fa-solid fa-circle-info"></i>
-        </button> -->
+        </button>
       </nav>
     </header>
     <main>
@@ -52,5 +58,29 @@
         <div data-goal="S" data-card="SE"></div>
       </section>
     </main>
+
+    <dialog id="info-modal">
+      <div class="header">
+        <h1>Info</h1>
+        <button
+          class="close"
+          data-modal-action="close"
+          data-modal-target="#info-modal"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="main">
+        This app was #2 of my App-A-Day challenge, started on November 11, 2024.
+        Check out
+        <a href="https://github.com/tmetcalfe89/klondike">the GitHub page</a>
+        for more info.
+      </div>
+      <div class="footer">
+        <button data-modal-action="close" data-modal-target="#info-modal">
+          Close
+        </button>
+      </div>
+    </dialog>
   </body>
 </html>
