@@ -1,0 +1,29 @@
+.stack :not(:first-of-type) {
+    margin-top: -90%;
+}
+
+$card-suits: H, D, S, C;
+
+[data-card] {
+    width: calc(100vw * 3 / 47);
+    aspect-ratio: 360 / 504;
+    background-position: center;
+    background-size: contain;
+
+    &[data-card="bg"] {
+        background-image: url(../cards/B.png);
+    }
+
+    @each $suit in $card-suits {
+        &[data-card="#{$suit}E"] {
+            opacity: 0.5;
+            background-image: url(../cards/#{$suit}E.png);
+        }
+
+        @for $i from 1 through 13 {
+            &[data-card="#{$suit}#{$i}"] {
+                background-image: url(../cards/#{$suit}#{$i}.png);
+            }
+        }
+    }
+}

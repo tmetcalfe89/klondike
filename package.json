@@ -1,0 +1,16 @@
+{
+  "name": "klondike",
+  "version": "1.0.0",
+  "description": "What would you do for a Klondike win?",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build-css",
+    "build-css": "npx sass style.scss build/style.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.80.6"
+  }
+}

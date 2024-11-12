@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 1.5rem;
+}
+
+header [data-info] {
+    color: darkgray;
+}
+
+header [data-info] *,
+header [data-info]:not(:has(*)) {
+    color: white;
+}
+
+main {
+    flex-grow: 1;
+    background-color: darkgreen;
+    display: grid;
+    grid-template-columns: 5fr 37fr 5fr;
+}
+
+main section {
+    padding-top: 2vh;
+}
+
+main section:first-of-type,
+main section:last-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2vh;
+}
+
+main section:not(:first-of-type):not(:last-of-type) {
+    background-color: rgba(255, 255, 255, 0.1);
+    justify-items: center;
+    display: flex;
+    justify-content: space-around;
+}
