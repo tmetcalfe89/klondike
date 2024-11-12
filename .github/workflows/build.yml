@@ -13,19 +13,19 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Specify the Node version you need
+          node-version: 'latest'  # Specify the Node version you need
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
         run: npm run build  # Runs your build script
-
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
