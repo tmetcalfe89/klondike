@@ -85,6 +85,10 @@ function renderDiscard() {
 function handleClickFieldCard(e) {
   const clicked = e.target;
   const columnIndex = getColumnIndex(clicked);
+  if (clicked.dataset.card === "BE") {
+    return;
+  }
+
   if (clicked.dataset.card === "B") {
     attemptFlip(game, columnIndex);
     renderStats();
