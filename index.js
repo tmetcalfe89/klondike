@@ -182,7 +182,7 @@ function renderTimer() {
 }
 
 function renderGoal(suit) {
-  goals[suit].dataset.card = game.goals[suit] ? `${suit}${game.goals[suit]}` : "BE";
+  goals[suit].dataset.card = game.goals[suit] ? `${suit}${game.goals[suit]}` : `${suit}E`;
 }
 
 function getColumnIndex(selected) {
