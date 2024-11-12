@@ -33,6 +33,7 @@ function start(forceNew = false) {
   game = (!forceNew && loadGame()) || startGame();
   renderGame();
   renderTimer();
+  renderStats();
 }
 
 deckEl.addEventListener("click", handleClickDeck);
