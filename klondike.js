@@ -97,8 +97,10 @@ export function attemptMove(game, fromColumnIndex, toColumnIndex, fromDepth) {
   const fromColumn =
     fromColumnIndex === -1 ? game.discard : game.columns[fromColumnIndex];
   const fromCard =
-    fromColumn[fromDepth === -1 ? fromColumn.length - 1 : fromDepth];
-  console.log(fromColumnIndex, fromDepth, fromColumn, fromCard);
+    fromDepth === -1
+      ? { card: fromColumn[fromColumn.length - 1], flipped: true }
+      : fromColumn[fromDepth];
+  // fromColumn[fromDepth === -1 ? fromColumn.length - 1 : fromDepth];
 
   const toColumn = game.columns[toColumnIndex];
   const toCard = toColumn[toColumn.length - 1];
@@ -107,7 +109,11 @@ export function attemptMove(game, fromColumnIndex, toColumnIndex, fromDepth) {
     throw new Error("Invalid opposite suit to move.");
   }
 
-  toColumn.push(...fromColumn.splice(fromDepth));
+  if (fromDepth === -1) {
+    toColumn.push({ card: game.discard.pop(), flipped: true });
+  } else {
+    toColumn.push(...fromColumn.splice(fromDepth));
+  }
 }
 
 const opposites = {

@@ -1,10 +1,4 @@
-import {
-  attemptFlip,
-  attemptGoal,
-  attemptMove,
-  draw,
-  startGame,
-} from "./klondike.js";
+import { attemptFlip, attemptGoal, attemptMove, draw, startGame } from "./klondike.js";
 
 let game = null;
 const deckEl = document.querySelector(".deck");
@@ -64,9 +58,10 @@ function handleClickDeck(e) {
 
 function renderDiscard() {
   discardEl.innerHTML = "";
-  for (let i = 0; i < game.discardRevealed; i++) {
+  const renderedDiscards = game.discard.slice(0 - game.discardRevealed);
+  for (const card of renderedDiscards) {
     const cardEl = createCardEl({
-      card: game.discard[game.discard.length - i - 1],
+      card,
       flipped: true,
     });
     discardEl.appendChild(cardEl);
@@ -103,7 +98,11 @@ function handleClickFieldCard(e) {
       ? -1
       : [...selected.parentNode.children].indexOf(selected)
   );
-  renderColumn(fromColumnIndex);
+  if (fromColumnIndex === -1) {
+    renderDiscard();
+  } else {
+    renderColumn(fromColumnIndex);
+  }
   renderColumn(columnIndex);
 }
 
