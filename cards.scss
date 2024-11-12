@@ -1,34 +1,40 @@
 .stack :not(:first-of-type) {
-    margin-top: -120%;
+  margin-top: -120%;
 }
 
 $card-suits: H, D, S, C;
 
 [data-card] {
-    width: calc(100vw * 3 / 47);
-    aspect-ratio: 360 / 504;
-    background-position: center;
-    background-size: contain;
+  width: calc(100vw * 3 / 47);
+  aspect-ratio: 360 / 504;
+  background-position: center;
+  background-size: contain;
+  cursor: pointer;
+  box-sizing: border-box;
 
-    &[data-card="B"] {
-        background-image: url(../cards/B.png);
+  &.selected {
+    border: 2px solid red;
+  }
+
+  &[data-card="B"] {
+    background-image: url(../cards/B.png);
+  }
+
+  &[data-card="BE"] {
+    opacity: 0.5;
+    background-image: url(../cards/B.png);
+  }
+
+  @each $suit in $card-suits {
+    &[data-card="#{$suit}E"] {
+      opacity: 0.5;
+      background-image: url(../cards/#{$suit}E.png);
     }
 
-    &[data-card="BE"] {
-        opacity: 0.5;
-        background-image: url(../cards/B.png);
+    @for $i from 1 through 13 {
+      &[data-card="#{$suit}#{$i}"] {
+        background-image: url(../cards/#{$suit}#{$i}.png);
+      }
     }
-
-    @each $suit in $card-suits {
-        &[data-card="#{$suit}E"] {
-            opacity: 0.5;
-            background-image: url(../cards/#{$suit}E.png);
-        }
-
-        @for $i from 1 through 13 {
-            &[data-card="#{$suit}#{$i}"] {
-                background-image: url(../cards/#{$suit}#{$i}.png);
-            }
-        }
-    }
+  }
 }
