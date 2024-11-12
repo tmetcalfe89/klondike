@@ -8,10 +8,26 @@ body {
 header {
   background-color: #333;
   color: white;
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: ". stats controls";
   padding: 1.5rem;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+}
+
+header nav.stats {
+  grid-area: stats;
+  gap: 2.5rem;
+}
+
+header nav.controls {
+  grid-area: controls;
+  justify-content: flex-end;
+  gap: 0.5em;
 }
 
 header [data-info] {
@@ -47,6 +63,11 @@ main section:not(:first-of-type):not(:last-of-type) {
   justify-items: center;
   display: flex;
   justify-content: space-evenly;
+}
+
+button {
+  cursor: pointer;
+  padding: 0.5em;
 }
 
 .stack :not(:first-of-type) {

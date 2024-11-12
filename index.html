@@ -1,42 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Klondike</title>
-    <link rel="stylesheet" href="./build/style.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./build/style.css" />
     <script src="./index.js" type="module"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
+      <nav class="stats">
         <div data-info="timer">0:00:00</div>
         <div data-info="score">Score <span>0</span></div>
         <div data-info="moves">Moves <span>0</span></div>
-        <button data-control="new-game">New Game</button>
+      </nav>
+      <nav class="controls">
+        <button data-control="new-game" title="New Game">
+          <i class="fa-solid fa-bolt"></i>
+        </button>
+        <!-- <button data-control="show-modal" title="Info">
+          <i class="fa-solid fa-circle-info"></i>
+        </button> -->
+      </nav>
     </header>
     <main>
-        <section>
-            <div class="deck" data-card="B"></div>
-            <div class="discard stack"></div>
-        </section>
-        <section>
-            <div class="column stack"></div>
-            <div class="column stack"></div>
-            <div class="column stack"></div>
-            <div class="column stack"></div>
-            <div class="column stack"></div>
-            <div class="column stack"></div>
-            <div class="column stack"></div>
-        </section>
-        <section>
-            <div data-goal="H" data-card="HE"></div>
-            <div data-goal="D" data-card="DE"></div>
-            <div data-goal="C" data-card="CE"></div>
-            <div data-goal="S" data-card="SE"></div>
-        </section>
+      <section>
+        <div class="deck" data-card="B"></div>
+        <div class="discard stack"></div>
+      </section>
+      <section>
+        <div class="column stack"></div>
+        <div class="column stack"></div>
+        <div class="column stack"></div>
+        <div class="column stack"></div>
+        <div class="column stack"></div>
+        <div class="column stack"></div>
+        <div class="column stack"></div>
+      </section>
+      <section>
+        <div data-goal="H" data-card="HE"></div>
+        <div data-goal="D" data-card="DE"></div>
+        <div data-goal="C" data-card="CE"></div>
+        <div data-goal="S" data-card="SE"></div>
+      </section>
     </main>
-</body>
-
+  </body>
 </html>
