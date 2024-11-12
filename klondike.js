@@ -100,7 +100,6 @@ export function attemptMove(game, fromColumnIndex, toColumnIndex, fromDepth) {
     fromDepth === -1
       ? { card: fromColumn[fromColumn.length - 1], flipped: true }
       : fromColumn[fromDepth];
-  // fromColumn[fromDepth === -1 ? fromColumn.length - 1 : fromDepth];
 
   const toColumn = game.columns[toColumnIndex];
   const toCard = toColumn[toColumn.length - 1];
