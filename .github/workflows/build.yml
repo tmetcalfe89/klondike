@@ -13,13 +13,10 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'latest'  # Specify the Node version you need
+          node-version: 'latest'
 
       - name: Install dependencies
         run: npm install
@@ -29,3 +26,16 @@ jobs:
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./build  # Specify your output directory here (e.g., `dist` if that's where your CSS and built files are)
+          
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
