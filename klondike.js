@@ -108,6 +108,11 @@ export function attemptMove(game, fromColumnIndex, toColumnIndex, fromDepth) {
   const toColumn = game.columns[toColumnIndex];
   const toCard = toColumn[toColumn.length - 1];
 
+  if (toCard === undefined) {
+    toColumn.push(...fromColumn.splice(fromDepth));
+    return;
+  }
+
   if (!isOppositeSuit(toCard, fromCard)) {
     throw new Error("Invalid opposite suit to move.");
   }
