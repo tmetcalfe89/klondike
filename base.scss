@@ -46,5 +46,5 @@ main section:not(:first-of-type):not(:last-of-type) {
     background-color: rgba(255, 255, 255, 0.1);
     justify-items: center;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
