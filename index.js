@@ -1,4 +1,10 @@
-import { attemptFlip, attemptGoal, draw, startGame } from "./klondike.js";
+import {
+  attemptFlip,
+  attemptGoal,
+  attemptMove,
+  draw,
+  startGame,
+} from "./klondike.js";
 
 let game = null;
 const deckEl = document.querySelector(".deck");
@@ -34,6 +40,10 @@ function renderColumn(index) {
   const column = game.columns[index];
   const columnEl = document.querySelectorAll(".column")[index];
   columnEl.innerHTML = "";
+  if (column.length === 0) {
+    const cardEl = createCardEl({ card: "BE", flipped: true });
+    columnEl.appendChild(cardEl);
+  }
   for (const card of column) {
     const cardEl = createCardEl(card);
     columnEl.appendChild(cardEl);
@@ -65,8 +75,8 @@ function renderDiscard() {
 
 function handleClickFieldCard(e) {
   const clicked = e.target;
+  const columnIndex = getColumnIndex(clicked);
   if (clicked.dataset.card === "B") {
-    const columnIndex = getColumnIndex(clicked)
     attemptFlip(game, columnIndex);
     renderColumn(columnIndex);
     return;
@@ -83,6 +93,18 @@ function handleClickFieldCard(e) {
     clicked.classList.remove("selected");
     return;
   }
+
+  const fromColumnIndex = getColumnIndex(selected);
+  attemptMove(
+    game,
+    fromColumnIndex,
+    columnIndex,
+    fromColumnIndex === -1
+      ? -1
+      : [...selected.parentNode.children].indexOf(selected)
+  );
+  renderColumn(fromColumnIndex);
+  renderColumn(columnIndex);
 }
 
 function handleClickGoal(e) {
@@ -93,9 +115,7 @@ function handleClickGoal(e) {
   }
 
   const goalSuit = e.target.dataset.goal;
-  const columnIndex = selected.parentNode.classList.contains("discard")
-    ? -1
-    : getColumnIndex(selected);
+  const columnIndex = getColumnIndex(selected);
   attemptGoal(game, goalSuit, selected.dataset.card, columnIndex);
   if (columnIndex === -1) {
     renderDiscard();
@@ -120,9 +140,9 @@ function renderGoal(suit) {
 }
 
 function getColumnIndex(selected) {
-  return [...selected.parentNode.parentNode.children].indexOf(
-    selected.parentNode
-  );
+  return selected.parentNode.classList.contains("discard")
+    ? -1
+    : [...selected.parentNode.parentNode.children].indexOf(selected.parentNode);
 }
 
 start();

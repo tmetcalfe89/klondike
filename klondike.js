@@ -88,3 +88,35 @@ export function attemptFlip(game, columnIndex) {
   const targetColumn = game.columns[columnIndex];
   targetColumn[targetColumn.length - 1].flipped = true;
 }
+
+export function attemptMove(game, fromColumnIndex, toColumnIndex, fromDepth) {
+  if (toColumnIndex < 0 || toColumnIndex > game.columns.length - 1) {
+    throw new Error("Invalid to column index.");
+  }
+
+  const fromColumn =
+    fromColumnIndex === -1 ? game.discard : game.columns[fromColumnIndex];
+  const fromCard =
+    fromColumn[fromDepth === -1 ? fromColumn.length - 1 : fromDepth];
+  console.log(fromColumnIndex, fromDepth, fromColumn, fromCard);
+
+  const toColumn = game.columns[toColumnIndex];
+  const toCard = toColumn[toColumn.length - 1];
+
+  if (!isOppositeSuit(toCard, fromCard)) {
+    throw new Error("Invalid opposite suit to move.");
+  }
+
+  toColumn.push(...fromColumn.splice(fromDepth));
+}
+
+const opposites = {
+  H: ["C", "S"],
+  D: ["C", "S"],
+  C: ["H", "D"],
+  S: ["H", "D"],
+};
+
+function isOppositeSuit(cardA, cardB) {
+  return opposites[cardA.card[0]].includes(cardB.card[0]);
+}
