@@ -1,4 +1,10 @@
-import { attemptFlip, attemptGoal, attemptMove, draw, startGame } from "./klondike.js";
+import {
+  attemptFlip,
+  attemptGoal,
+  attemptMove,
+  draw,
+  startGame,
+} from "./klondike.js";
 
 let game = null;
 const deckEl = document.querySelector(".deck");
@@ -10,6 +16,8 @@ const goals = ["H", "D", "C", "S"].reduce(
   }),
   {}
 );
+const scoreEl = document.querySelector(`[data-info="score"] span`);
+const movesEl = document.querySelector(`[data-info="moves"] span`);
 
 function start() {
   game = startGame();
@@ -54,6 +62,12 @@ function createCardEl({ card, flipped }) {
 function handleClickDeck(e) {
   draw(game);
   renderDiscard();
+  renderStats();
+}
+
+function renderStats() {
+  scoreEl.innerText = game.score;
+  movesEl.innerText = game.moves;
 }
 
 function renderDiscard() {
@@ -73,6 +87,7 @@ function handleClickFieldCard(e) {
   const columnIndex = getColumnIndex(clicked);
   if (clicked.dataset.card === "B") {
     attemptFlip(game, columnIndex);
+    renderStats();
     renderColumn(columnIndex);
     return;
   }
@@ -104,6 +119,7 @@ function handleClickFieldCard(e) {
     renderColumn(fromColumnIndex);
   }
   renderColumn(columnIndex);
+  renderStats();
 }
 
 function handleClickGoal(e) {
@@ -122,6 +138,7 @@ function handleClickGoal(e) {
     renderColumn(columnIndex);
   }
   renderGoal(goalSuit);
+  renderStats();
 }
 
 function getSelectedCard() {

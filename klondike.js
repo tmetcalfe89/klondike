@@ -30,6 +30,9 @@ export function startGame() {
     discard: [],
     discardRevealed: 0,
     goals: suits.reduce((acc, suit) => ({ ...acc, [suit]: 0 }), {}),
+    score: 0,
+    moves: 0,
+    start: Date.now(),
   };
 }
 
@@ -58,6 +61,7 @@ export function draw(game) {
   const drawn = takeCards(game.deck, 3);
   game.discard.push(...drawn);
   game.discardRevealed = drawn.length;
+  game.moves++;
 }
 
 export function attemptGoal(game, goalSuit, card, columnIndex) {
@@ -78,6 +82,8 @@ export function attemptGoal(game, goalSuit, card, columnIndex) {
   } else {
     game.columns[columnIndex].pop();
   }
+  game.score += 10;
+  game.moves++;
 }
 
 function getCardSuit(card) {
@@ -90,7 +96,11 @@ function getCardValue(card) {
 
 export function attemptFlip(game, columnIndex) {
   const targetColumn = game.columns[columnIndex];
+  if (targetColumn[targetColumn.length - 1].flipped) {
+    throw new Error("Card already flipped.");
+  }
   targetColumn[targetColumn.length - 1].flipped = true;
+  game.score += 5;
 }
 
 export function attemptMove(game, fromColumnIndex, toColumnIndex, fromDepth) {
@@ -119,9 +129,11 @@ export function attemptMove(game, fromColumnIndex, toColumnIndex, fromDepth) {
 
   if (fromDepth === -1) {
     toColumn.push({ card: game.discard.pop(), flipped: true });
+    game.score += 5;
   } else {
     toColumn.push(...fromColumn.splice(fromDepth));
   }
+  game.moves++;
 }
 
 const opposites = {
