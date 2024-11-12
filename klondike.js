@@ -119,7 +119,12 @@ export function attemptMove(game, fromColumnIndex, toColumnIndex, fromDepth) {
   const toCard = toColumn[toColumn.length - 1];
 
   if (toCard === undefined) {
-    toColumn.push(...fromColumn.splice(fromDepth));
+    if (fromDepth === -1) {
+      toColumn.push({ card: game.discard.pop(), flipped: true });
+      game.score += 5;
+    } else {
+      toColumn.push(...fromColumn.splice(fromDepth));
+    }
     return;
   }
 
