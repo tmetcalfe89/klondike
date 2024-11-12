@@ -51,6 +51,10 @@ function takeCards(deck, count = 1) {
 }
 
 export function draw(game) {
+  if (game.deck.length === 0) {
+    game.deck = game.discard.splice(0, game.discard.length);
+    return;
+  }
   const drawn = takeCards(game.deck, 3);
   game.discard.push(...drawn);
   game.discardRevealed = drawn.length;
