@@ -20,8 +20,16 @@ const scoreEl = document.querySelector(`[data-info="score"] span`);
 const movesEl = document.querySelector(`[data-info="moves"] span`);
 const timerEl = document.querySelector(`[data-info="timer"]`);
 
+function loadGame() {
+  return JSON.parse(localStorage.getItem("game"));
+}
+
+function saveGame() {
+  localStorage.setItem("game", JSON.stringify(game));
+}
+
 function start() {
-  game = startGame();
+  game = loadGame() || startGame();
   renderGame();
   deckEl.addEventListener("click", handleClickDeck);
   Object.values(goals).forEach((goal) =>
@@ -32,6 +40,8 @@ function start() {
 
 function renderGame() {
   renderColumns();
+  renderGoals();
+  renderDiscard();
 }
 
 function renderColumns() {
@@ -87,7 +97,8 @@ function renderDiscard() {
 function handleClickFieldCard(e) {
   const clicked = e.target;
   const columnIndex = getColumnIndex(clicked);
-  if (clicked.dataset.card === "BE") {
+  const selected = getSelectedCard();
+  if (clicked.dataset.card === "BE" && selected == null) {
     return;
   }
 
@@ -97,8 +108,6 @@ function handleClickFieldCard(e) {
     renderColumn(columnIndex);
     return;
   }
-
-  const selected = getSelectedCard();
 
   if (!selected) {
     clicked.classList.add("selected");
@@ -153,7 +162,7 @@ function getSelectedCard() {
 
 function renderGoals() {
   for (const suit in goals) {
-    renderGoals(suit);
+    renderGoal(suit);
   }
 }
 
@@ -168,11 +177,12 @@ function renderTimer() {
     2,
     0
   )}:${`${seconds}`.padStart(2, 0)}`;
+  saveGame();
   setTimeout(renderTimer, 500);
 }
 
 function renderGoal(suit) {
-  goals[suit].dataset.card = `${suit}${game.goals[suit]}`;
+  goals[suit].dataset.card = game.goals[suit] ? `${suit}${game.goals[suit]}` : "BE";
 }
 
 function getColumnIndex(selected) {
