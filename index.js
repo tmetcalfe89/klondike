@@ -18,6 +18,7 @@ const goals = ["H", "D", "C", "S"].reduce(
 );
 const scoreEl = document.querySelector(`[data-info="score"] span`);
 const movesEl = document.querySelector(`[data-info="moves"] span`);
+const timerEl = document.querySelector(`[data-info="timer"]`);
 
 function start() {
   game = startGame();
@@ -26,6 +27,7 @@ function start() {
   Object.values(goals).forEach((goal) =>
     goal.addEventListener("click", handleClickGoal)
   );
+  renderTimer();
 }
 
 function renderGame() {
@@ -153,6 +155,20 @@ function renderGoals() {
   for (const suit in goals) {
     renderGoals(suit);
   }
+}
+
+function renderTimer() {
+  const timeDiff = Date.now() - game.start;
+  const hours = Math.floor(timeDiff / 1000 / 60 / 60);
+  const minutes = Math.floor((timeDiff - hours * 1000 * 60 * 60) / 1000 / 60);
+  const seconds = Math.floor(
+    (timeDiff - hours * 1000 * 60 * 60 - minutes * 1000 * 60) / 1000
+  );
+  timerEl.innerText = `${hours}:${`${minutes}`.padStart(
+    2,
+    0
+  )}:${`${seconds}`.padStart(2, 0)}`;
+  setTimeout(renderTimer, 500);
 }
 
 function renderGoal(suit) {
