@@ -132,6 +132,10 @@ export function attemptMove(game, fromColumnIndex, toColumnIndex, fromDepth) {
     throw new Error("Invalid opposite suit to move.");
   }
 
+  if (getCardValue(fromCard.card) !== getCardValue(toCard.card) - 1) {
+    throw new Error("Invalid number to move to.");
+  }
+
   if (fromDepth === -1) {
     toColumn.push({ card: game.discard.pop(), flipped: true });
     game.score += 5;
